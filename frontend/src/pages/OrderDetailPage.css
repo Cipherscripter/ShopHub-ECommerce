@@ -1,0 +1,208 @@
+.order-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.order-detail-id {
+  font-family: monospace;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+/* Progress */
+.order-progress {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.progress-steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  position: relative;
+}
+
+.step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  z-index: 1;
+  transition: var(--transition);
+}
+
+.progress-step.completed .step-circle {
+  background: var(--success);
+  color: #fff;
+}
+
+.progress-step.active .step-circle {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(37,99,235,.2);
+}
+
+.step-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.progress-step.completed .step-label,
+.progress-step.active .step-label {
+  color: var(--text-primary);
+}
+
+.step-line {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+
+.step-line.completed { background: var(--success); }
+
+/* Grid */
+.order-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.order-detail-left,
+.order-detail-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.order-section {
+  padding: 1.25rem;
+}
+
+.order-section h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Items */
+.order-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.order-detail-item:last-child { border-bottom: none; }
+
+.order-detail-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.order-detail-item-info { flex: 1; }
+.order-detail-item-name { font-size: 0.875rem; font-weight: 500; }
+.order-detail-item-qty { font-size: 0.8rem; color: var(--text-secondary); }
+.order-detail-item-price { font-weight: 700; font-size: 0.9rem; }
+
+/* Address */
+.address-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.address-block strong { color: var(--text-primary); }
+
+.tracking-number {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--primary);
+}
+
+/* Payment */
+.payment-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-bottom: 1rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.summary-row.discount { color: var(--success); }
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: 700;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.payment-status,
+.payment-method {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.paid { color: var(--success); font-weight: 600; }
+.unpaid { color: var(--danger); font-weight: 600; }
+
+/* History */
+.status-history { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.history-entry {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.history-date { font-size: 0.8rem; color: var(--text-secondary); }
+.history-note { font-size: 0.8rem; color: var(--text-secondary); width: 100%; }
+
+@media (max-width: 900px) {
+  .order-detail-grid { grid-template-columns: 1fr; }
+  .progress-steps { gap: 0.5rem; }
+  .step-label { font-size: 0.65rem; }
+}

@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="container footer-inner">
         <div className="footer-brand">
-          <Link to="/" className="footer-logo">🛍️ ShopHub</Link>
+          <Link to="/" className="footer-logo">Shop<span>Hub</span></Link>
           <p className="footer-tagline">Your premium online shopping destination.</p>
         </div>
 

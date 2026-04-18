@@ -4,35 +4,27 @@ import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
 import './ProductCard.css';
 
-const StarRating = ({ rating }) => {
-  const stars = [];
-  for (let i = 1; i <= 5; i++) {
-    stars.push(
-      <span key={i} style={{ color: i <= Math.round(rating) ? '#f59e0b' : '#d1d5db' }}>
-        ★
-      </span>
-    );
-  }
-  return <span className="star-rating">{stars}</span>;
-};
+const StarRating = ({ rating }) => (
+  <span className="star-rating">
+    {[1,2,3,4,5].map(i => (
+      <span key={i} style={{ color: i <= Math.round(rating) ? '#f59e0b' : '#d1d5db' }}>★</span>
+    ))}
+  </span>
+);
 
 const ProductCard = ({ product }) => {
   const { addToCart, loading } = useCart();
   const { isAuthenticated } = useAuth();
 
   const handleAddToCart = async (e) => {
-    e.preventDefault(); // Don't navigate to product page
-    if (!isAuthenticated) {
-      window.location.href = '/login';
-      return;
-    }
+    e.preventDefault();
+    if (!isAuthenticated) { window.location.href = '/login'; return; }
     await addToCart(product._id, 1);
   };
 
-  const discountPercent =
-    product.discountPrice > 0
-      ? Math.round(((product.price - product.discountPrice) / product.price) * 100)
-      : 0;
+  const discountPercent = product.discountPrice > 0
+    ? Math.round(((product.price - product.discountPrice) / product.price) * 100)
+    : 0;
 
   const displayPrice = product.discountPrice > 0 ? product.discountPrice : product.price;
 
@@ -40,7 +32,7 @@ const ProductCard = ({ product }) => {
     <Link to={`/products/${product._id}`} className="product-card">
       <div className="product-card-image-wrapper">
         <img
-          src={product.images[0]?.url || 'https://via.placeholder.com/400x400?text=No+Image'}
+          src={product.images[0]?.url || 'https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=400&q=80'}
           alt={product.name}
           className="product-card-image"
           loading="lazy"
@@ -49,7 +41,17 @@ const ProductCard = ({ product }) => {
           <span className="product-discount-badge">-{discountPercent}%</span>
         )}
         {product.stock === 0 && (
-          <div className="product-out-of-stock">Out of Stock</div>
+          <div className="product-out-of-stock">Sold Out</div>
+        )}
+        {product.stock > 0 && (
+          <button
+            className="btn btn-primary btn-sm product-quick-add"
+            onClick={handleAddToCart}
+            disabled={loading}
+            aria-label={`Add ${product.name} to cart`}
+          >
+            + Add to Cart
+          </button>
         )}
       </div>
 
@@ -64,20 +66,11 @@ const ProductCard = ({ product }) => {
 
         <div className="product-price-row">
           <div className="product-prices">
-            <span className="product-price">₹{displayPrice.toFixed(2)}</span>
+            <span className="product-price">₹{displayPrice.toLocaleString('en-IN')}</span>
             {discountPercent > 0 && (
-              <span className="product-original-price">₹{product.price.toFixed(2)}</span>
+              <span className="product-original-price">₹{product.price.toLocaleString('en-IN')}</span>
             )}
           </div>
-
-          <button
-            className="btn btn-primary btn-sm add-to-cart-btn"
-            onClick={handleAddToCart}
-            disabled={loading || product.stock === 0}
-            aria-label={`Add ${product.name} to cart`}
-          >
-            {product.stock === 0 ? 'Sold Out' : '+ Cart'}
-          </button>
         </div>
       </div>
     </Link>

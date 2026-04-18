@@ -31,7 +31,7 @@ const Navbar = () => {
       <div className="container navbar-inner">
         {/* Logo */}
         <Link to="/" className="navbar-logo">
-          🛍️ ShopHub
+          Shop<span>Hub</span>
         </Link>
 
         {/* Search Bar */}
